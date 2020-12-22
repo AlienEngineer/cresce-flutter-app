@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  ui_bits: ^0.0.5
+  ui_bits: ^0.0.6
   font_awesome_flutter: ^8.10.0
   http: ^0.12.2
   equatable: ^1.2.5

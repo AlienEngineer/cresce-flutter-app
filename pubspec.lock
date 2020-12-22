@@ -365,7 +365,7 @@ packages:
       name: ui_bits
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.5"
+    version: "0.0.6"
   vector_math:
     dependency: transitive
     description:
