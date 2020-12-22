@@ -7,10 +7,9 @@ class AuthenticationModule implements ServiceModule {
   void register(ServiceLocator locator) {
     locator.registerFactory<LoginServices>(() {
       return LoginServices(
-        get<HttpPost>(),
+        locator.get<HttpPost>(),
         locator.get<TokenRepository>(),
       );
     });
-
   }
 }

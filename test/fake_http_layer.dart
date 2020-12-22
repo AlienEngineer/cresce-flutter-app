@@ -6,13 +6,16 @@ import 'package:flutter/foundation.dart';
 import 'package:mockito/mockito.dart';
 
 T makeService<T>() {
-  useFakeHttpLayer();
-  return get<T>();
+  return makeServiceLocator(override: (locator) {
+    useFakeHttpLayer(locator);
+  }).get<T>();
 }
 
-void useFakeHttpLayer() {
-  overrideDependency(makeHttpPost());
-  overrideDependency(makeHttpGet());
+void useFakeHttpLayer([ServiceLocator locator]) {
+  if (locator != null) {
+    locator.overrideDependency(makeHttpPost());
+    locator.overrideDependency(makeHttpGet());
+  }
 }
 
 class HttpPostMock extends Mock implements HttpPost {}
@@ -67,6 +70,7 @@ HttpPost makeHttpPost() {
     Credentials(user: 'myUser', password: 'myPass'),
   )).thenAnswer(
     (_) {
+      print('authenticated');
       return SynchronousFuture(HttpResponse(
         formatter,
         statusCode: 200,
@@ -82,6 +86,7 @@ HttpPost makeHttpPost() {
     Credentials(user: 'myUser1', password: 'myPass'),
   )).thenAnswer(
     (_) {
+      print('failed authenticated');
       return SynchronousFuture(HttpResponse(
         formatter,
         statusCode: 500,

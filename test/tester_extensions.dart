@@ -11,24 +11,40 @@ extension TesterExtensions on WidgetTester {
       this.pumpAndSettle(const Duration(minutes: 1));
 
   Future pumpApp() async {
-    useFakeHttpLayer();
-    await this.pumpWidget(MyApp());
+    //useFakeHttpLayer();
+    await this.pumpWidget(makeApp(
+      overrideDependencies: (locator) {
+        useFakeHttpLayer(locator);
+      },
+    ));
     await this.waitForAnimationsToSettle();
   }
 
   Future pumpWidgetInApp(Widget widget) async {
-    useFakeHttpLayer();
-
-    var themeFactory = ThemeFactory();
-
-    await this.pumpWidget(MaterialApp(
-      theme: themeFactory.makeBlueTheme(),
-      home: themeFactory.makeHome(
-        child: Scaffold(
+    //useFakeHttpLayer();
+    await this.pumpWidget(
+      makeApp(
+        overrideDependencies: (locator) {
+          useFakeHttpLayer(locator);
+        },
+        home: Scaffold(
           body: widget,
         ),
       ),
-    ));
+    );
+
+    var themeFactory = ThemeFactory();
+
+    await this.pumpWidget(
+      MaterialApp(
+        theme: themeFactory.makeBlueTheme(),
+        home: themeFactory.makeHome(
+          child: Scaffold(
+            body: widget,
+          ),
+        ),
+      ),
+    );
     await this.waitForAnimationsToSettle();
   }
 }

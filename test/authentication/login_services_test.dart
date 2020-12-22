@@ -6,28 +6,29 @@ import '../fake_http_layer.dart';
 
 void main() {
   EquatableConfig.stringify = true;
+  group(LoginServices, () {
+    test('on successful login calls given callback function', () async {
+      final loginServices = makeService<LoginServices>();
+      Token token;
 
-  test('on successful login calls given callback function', () async {
-    final loginServices = makeService<LoginServices>();
-    Token token;
+      loginServices.login(
+        Credentials(user: 'myUser', password: 'myPass'),
+        onSuccess: (result) => token = result,
+      );
 
-    loginServices.login(
-      Credentials(user: 'myUser', password: 'myPass'),
-      onSuccess: (result) => token = result,
-    );
+      expect(token, Token(token: 'myAuthToken'));
+    });
 
-    expect(token, Token(token: 'myAuthToken'));
-  });
+    test('on failure login calls given callback function', () async {
+      final loginServices = makeService<LoginServices>();
+      bool failed = false;
 
-  test('on failure login calls given callback function', () async {
-    final loginServices = makeService<LoginServices>();
-    bool failed = false;
+      loginServices.login(
+        Credentials(user: 'myUser1', password: 'myPass'),
+        onFailure: () => failed = true,
+      );
 
-    loginServices.login(
-      Credentials(user: 'myUser1', password: 'myPass'),
-      onFailure: () => failed = true,
-    );
-
-    expect(failed, isTrue);
+      expect(failed, isTrue);
+    });
   });
 }

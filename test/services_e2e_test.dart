@@ -8,11 +8,12 @@ import 'monitor.dart';
 
 main() {
   EquatableConfig.stringify = true;
+  var locator = makeServiceLocator(override: (locator) {});
 
   group('integration', () {
     test('login in with valid credentials returns auth token', () async {
       var monitor = _makeMonitor();
-      var services = get<LoginServices>();
+      var services = locator.get<LoginServices>();
 
       Token loginResult;
       services.login(
@@ -30,11 +31,12 @@ main() {
       expect(loginResult.token, isNotEmpty);
     });
 
-    test('login in with valid credentials returns auth token', () async {
+    test('fetching employees for a given organization returns employees',
+        () async {
       var monitor = _makeMonitor();
-      var services = get<EmployeeServices>();
+      var services = locator.get<EmployeeServices>();
 
-      await login();
+      await login(locator);
       List<Employee> employees;
       services.fetchEmployees(
         Organization(name: 'myOrganization'),
@@ -52,9 +54,9 @@ main() {
   });
 }
 
-Future login() async {
+Future login(ServiceLocator locator) async {
   var monitor = _makeMonitor();
-  var services = get<LoginServices>();
+  var services = locator.get<LoginServices>();
 
   services.login(
     Credentials(user: 'myUser', password: 'myPass'),

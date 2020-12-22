@@ -7,16 +7,12 @@ import 'package:flutter/widgets.dart';
 import 'package:ui_bits/ui_bits.dart';
 
 class LoginWidget extends StatefulWidget {
-  final LoginWidgetLabels labels;
   final LoginWidgetLabels messages;
   final void Function(Token credentialsDto) onSuccess;
-  final LoginServices services;
 
   const LoginWidget({
     Key key,
-    this.labels,
     this.onSuccess,
-    this.services,
     this.messages = const LoginWidgetLabels(),
   }) : super(key: key);
 
@@ -27,25 +23,25 @@ class LoginWidget extends StatefulWidget {
 class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
-    return LoginCardWidget(
+    return _LoginCardWidget(
       messages: widget.messages,
       onCredentialsSubmit: submitCredentials,
     );
   }
 
   void submitCredentials(Credentials credentials) {
-    (widget.services ?? get<LoginServices>()).login(
-      credentials,
-      onSuccess: widget.onSuccess,
-    );
+    context.get<LoginServices>().login(
+          credentials,
+          onSuccess: widget.onSuccess,
+        );
   }
 }
 
-class LoginCardWidget extends StatefulWidget {
+class _LoginCardWidget extends StatefulWidget {
   final Function(Credentials) onCredentialsSubmit;
   final LoginWidgetLabels messages;
 
-  const LoginCardWidget({
+  const _LoginCardWidget({
     this.onCredentialsSubmit,
     this.messages = const LoginWidgetLabels(),
   });
@@ -54,7 +50,7 @@ class LoginCardWidget extends StatefulWidget {
   _LoginCardWidgetState createState() => _LoginCardWidgetState();
 }
 
-class _LoginCardWidgetState extends State<LoginCardWidget> {
+class _LoginCardWidgetState extends State<_LoginCardWidget> {
   final _CredentialsFields fields = _CredentialsFields();
   final AnimationOrchestrator trigger = AnimationOrchestrator();
 

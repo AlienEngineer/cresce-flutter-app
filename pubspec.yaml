@@ -14,8 +14,8 @@ dependencies:
   font_awesome_flutter: ^8.10.0
   http: ^0.12.2
   equatable: ^1.2.5
-  get_it: ^5.0.1
   cupertino_icons: ^0.1.3
+  provider: ^4.3.2+3
 
 dev_dependencies:
   flutter_test:
