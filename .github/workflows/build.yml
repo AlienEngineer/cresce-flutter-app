@@ -1,4 +1,4 @@
-name: Flutter
+name: Build
 
 on:
   push:
@@ -10,15 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-       cresce-api:
-         image: alienengineer/cresce
-         ports:
-         - 5000:80
-
     container:
       image:  cirrusci/flutter:latest
-      
+
     steps:
       - uses: actions/checkout@v2
 
@@ -33,7 +27,3 @@ jobs:
 
       - name: Run tests
         run: flutter test
-      
-      - name: Build APK
-        run: flutter build apk
-        if: contains('refs/heads/master', github.ref)
