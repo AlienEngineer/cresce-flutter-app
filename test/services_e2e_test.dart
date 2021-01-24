@@ -16,10 +16,10 @@ main() {
     print('running in local mode');
     print('make sure to run web server:');
     print('docker run -d -p 5000:80 --name cresce.api alienengineer/cresce');
+    locator = makeServiceLocator(authority: 'http://localhost:5000/');
   } else {
     locator = makeServiceLocator();
   }
-    locator = makeServiceLocator(authority: 'http://localhost:5000/');
 
   group('integration', () {
     test('login in with valid credentials returns auth token', () async {
