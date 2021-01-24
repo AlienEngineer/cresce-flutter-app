@@ -1,0 +1,22 @@
+name: Format-Code
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image:  cirrusci/flutter:latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Format code
+      run: flutter format .
+
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Format code
