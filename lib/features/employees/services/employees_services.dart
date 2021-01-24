@@ -11,6 +11,13 @@ class EmployeeServices {
 
   EmployeeServices(this.httpGet);
 
+  Future<List<Employee>> getEmployees(Organization organizationDto) async {
+    return await httpGet.getList<Employee>(
+      url: _makePath(organizationDto),
+      deserialize: Employee(),
+    );
+  }
+
   void fetchEmployees(
     Organization organizationDto, {
     OnFetchSuccessful onSuccess,

@@ -11,13 +11,11 @@ main() {
   group(EmployeeServices, () {
     test(
         'fetching employees for the given organization returns list of employees',
-        () {
+        () async {
       var service = makeService<EmployeeServices>();
-      List<Employee> employees;
 
-      service.fetchEmployees(
+      var employees = await service.getEmployees(
         Organization(name: 'myOrganization'),
-        onSuccess: (result) => employees = result,
       );
 
       expect(employees, [
@@ -28,16 +26,14 @@ main() {
       ]);
     });
     test('fetching employees for unknown organization calls failure callback',
-        () {
+        () async {
       var service = makeService<EmployeeServices>();
-      bool failed = false;
 
-      service.fetchEmployees(
-        Organization(name: 'unknownOrg'),
-        onFailure: () => failed = true,
+      var employees = await service.getEmployees(
+        Organization(name: 'unknown'),
       );
 
-      expect(failed, isTrue);
+      expect(employees, []);
     });
   });
 }

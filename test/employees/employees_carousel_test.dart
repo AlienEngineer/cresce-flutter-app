@@ -12,6 +12,7 @@ void main() {
     });
     testWidgets('on page build fetch employees', (tester) async {
       await _pumpWidget(tester);
+      await tester.pumpAndSettle();
 
       expect(find.byType(BitCarousel), findsOneWidget);
       expect(find.byType(BitThumbnail), findsOneWidget);

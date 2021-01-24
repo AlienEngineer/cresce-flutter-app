@@ -1,8 +1,8 @@
 import 'package:cresce_flutter_app/features/features.dart';
 import 'package:cresce_flutter_app/features/organizations/organizations.dart';
+import 'package:cresce_flutter_app/service_configuration.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ui_bits/ui_bits.dart';
-import 'package:cresce_flutter_app/service_configuration.dart';
 
 class EmployeeCarouselWidget extends StatefulWidget {
   @override
@@ -16,15 +16,13 @@ class _EmployeeCarouselWidgetState extends State<EmployeeCarouselWidget> {
   void initState() {
     super.initState();
 
-    context.get<EmployeeServices>().fetchEmployees(
-      Organization(name: 'myOrganization'),
-      onSuccess: (employees) {
-        setState(() {
-          _current = _makeCarousel(employees);
-        });
-      },
-      onFailure: () {},
-    );
+    context
+        .get<EmployeeServices>()
+        .getEmployees(Organization(name: 'myOrganization'))
+        .then((employees) {
+      _current = _makeCarousel(employees);
+      setState(() {});
+    });
   }
 
   Widget _makeCarousel(List<Employee> employees) {
