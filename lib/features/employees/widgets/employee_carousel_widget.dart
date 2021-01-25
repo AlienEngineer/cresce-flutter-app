@@ -1,5 +1,4 @@
 import 'package:cresce_flutter_app/features/features.dart';
-import 'package:cresce_flutter_app/features/organizations/organizations.dart';
 import 'package:cresce_flutter_app/service_configuration.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ui_bits/ui_bits.dart';
@@ -10,19 +9,12 @@ class EmployeeCarouselWidget extends StatefulWidget {
 }
 
 class _EmployeeCarouselWidgetState extends State<EmployeeCarouselWidget> {
-  Widget _current = Container();
-
   @override
-  void initState() {
-    super.initState();
-
-    context
-        .get<EmployeeServices>()
-        .getEmployees(Organization(name: 'myOrganization'))
-        .then((employees) {
-      _current = _makeCarousel(employees);
-      setState(() {});
-    });
+  Widget build(BuildContext context) {
+    return DataBuilder<List<Employee>>(
+      future: getEmployees(context),
+      onData: (data) => _makeCarousel(data),
+    );
   }
 
   Widget _makeCarousel(List<Employee> employees) {
@@ -40,8 +32,9 @@ class _EmployeeCarouselWidgetState extends State<EmployeeCarouselWidget> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return _current;
+  Future<List<Employee>> getEmployees(BuildContext context) {
+    return context
+        .get<EmployeeServices>()
+        .getEmployees(Organization(name: 'myOrganization'));
   }
 }
