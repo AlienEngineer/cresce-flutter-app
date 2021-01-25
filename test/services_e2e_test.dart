@@ -1,6 +1,6 @@
+import 'package:cresce_flutter_app/core/core.dart';
 import 'package:cresce_flutter_app/features/features.dart';
 import 'package:cresce_flutter_app/features/organizations/organization.dart';
-import 'package:cresce_flutter_app/features/core/services_locator.dart';
 import 'package:cresce_flutter_app/service_configuration.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -44,21 +44,10 @@ main() {
 
     test('fetching employees for a given organization returns employees',
         () async {
-      var monitor = _makeMonitor();
       var services = locator.get<EmployeeServices>();
 
       await login(locator);
-      List<Employee> employees;
-      services.fetchEmployees(
-        Organization(name: 'myOrganization'),
-        onSuccess: (result) {
-          employees = result;
-          monitor.signal();
-        },
-        onFailure: () => monitor.signal(),
-      );
-
-      await monitor.wait();
+      var employees = await services.getEmployees(Organization(name: 'myOrganization'));
 
       expect(employees, [
         Employee(

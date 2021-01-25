@@ -9,27 +9,19 @@ main() {
 
   group(OrganizationServices, () {
     test('on successful login calls given callback function', () async {
-      final services = makeService<OrganizationServices>();
-      List<Organization> organizations;
+      final service = makeService<OrganizationServices>();
 
-      services.fetchOrganizations(
-        'myUser',
-        onSuccess: (orgs) => organizations = orgs,
-      );
+      var organizations = await service.getOrganizations('myUser');
 
       expect(organizations, [Organization(name: 'myOrg')]);
     });
 
-    test('fetching organizations for unknown user calls failure callback', () {
+    test('fetching organizations for unknown user calls failure callback', () async{
       var service = makeService<OrganizationServices>();
-      bool failed = false;
 
-      service.fetchOrganizations(
-        'unknownUser',
-        onFailure: () => failed = true,
-      );
+      var organizations = await service.getOrganizations('unknownUser');
 
-      expect(failed, isTrue);
+      expect(organizations, []);
     });
   });
 }

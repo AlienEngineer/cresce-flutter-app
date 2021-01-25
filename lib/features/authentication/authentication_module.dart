@@ -1,6 +1,5 @@
+import 'package:cresce_flutter_app/core/core.dart';
 import 'package:cresce_flutter_app/features/features.dart';
-import 'package:cresce_flutter_app/features/http_requests/http_requests.dart';
-import 'package:cresce_flutter_app/features/core/services_locator.dart';
 
 class AuthenticationModule implements ServiceModule {
   @override

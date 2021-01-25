@@ -1,10 +1,7 @@
-import 'package:cresce_flutter_app/features/http_requests/http_requests.dart';
+import 'package:cresce_flutter_app/core/http_requests/http_requests.dart';
 import 'package:cresce_flutter_app/features/organizations/organizations.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ui_bits/ui_bits.dart';
-
-typedef void OnFetchSuccessful(List<Employee> employees);
-typedef void OnFetchFailure();
 
 class EmployeeServices {
   HttpGet httpGet;
@@ -14,19 +11,6 @@ class EmployeeServices {
   Future<List<Employee>> getEmployees(Organization organizationDto) async {
     return await httpGet.getList<Employee>(
       url: _makePath(organizationDto),
-      deserialize: Employee(),
-    );
-  }
-
-  void fetchEmployees(
-    Organization organizationDto, {
-    OnFetchSuccessful onSuccess,
-    OnFetchFailure onFailure,
-  }) {
-    httpGet.fetchList(
-      url: _makePath(organizationDto),
-      onSuccess: onSuccess,
-      onFailure: onFailure,
       deserialize: Employee(),
     );
   }

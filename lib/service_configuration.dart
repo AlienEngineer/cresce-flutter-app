@@ -1,8 +1,6 @@
 import 'package:cresce_flutter_app/features/authentication/authentication_module.dart';
-import 'package:cresce_flutter_app/features/core/core.dart';
-import 'package:cresce_flutter_app/features/core/core_module.dart';
+import 'package:cresce_flutter_app/core/core.dart';
 import 'package:cresce_flutter_app/features/employees/employees_module.dart';
-import 'package:cresce_flutter_app/features/http_requests/http_module.dart';
 import 'package:cresce_flutter_app/features/organizations/organizations_module.dart';
 import 'package:cresce_flutter_app/pages/pages_module.dart';
 import 'package:flutter/widgets.dart';

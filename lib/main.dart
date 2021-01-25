@@ -1,13 +1,12 @@
+import 'package:cresce_flutter_app/core/core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:cresce_flutter_app/pages/login_page_widget.dart';
-import 'package:cresce_flutter_app/features/core/services_locator.dart';
 import 'package:cresce_flutter_app/service_configuration.dart';
 import 'package:ui_bits/ui_bits.dart';
 
-import 'features/features.dart';
 
 void main() {
   runApp(makeApp());

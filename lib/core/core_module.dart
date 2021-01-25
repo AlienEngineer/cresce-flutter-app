@@ -1,5 +1,4 @@
-import 'package:cresce_flutter_app/features/features.dart';
-import 'package:cresce_flutter_app/features/core/services_locator.dart';
+import 'package:cresce_flutter_app/core/core.dart';
 
 class CoreModule implements ServiceModule {
   @override

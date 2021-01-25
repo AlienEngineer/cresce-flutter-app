@@ -1,4 +1,4 @@
-import 'package:cresce_flutter_app/features/http_requests/http_requests.dart';
+import 'package:cresce_flutter_app/core/http_requests/http_requests.dart';
 import 'package:equatable/equatable.dart';
 
 class Token extends Equatable implements Serializable, Deserialize {

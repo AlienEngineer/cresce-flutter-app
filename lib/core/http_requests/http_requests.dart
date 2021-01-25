@@ -4,4 +4,5 @@ export 'formaters/decoders.dart';
 export 'http_pipeline.dart';
 export 'http_post.dart';
 export 'http_filters.dart';
-export '../authentication/services/token_repository.dart';
+export 'token_repository.dart';
+export 'token.dart';

@@ -1,4 +1,4 @@
-import 'package:cresce_flutter_app/features/features.dart';
+import 'package:cresce_flutter_app/core/core.dart';
 
 class TokenRepository {
   Token _token;
